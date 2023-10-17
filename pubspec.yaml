@@ -16,6 +16,8 @@ dependencies:
     sdk: flutter
   flutter_tailwindcss: ^0.0.4
   tailwind_cli: ^0.6.4
+  cpp_finance_tracker_plugin:
+    path: ./cpp_finance_tracker_plugin
 
 dev_dependencies:
   flutter_test:
