@@ -1,20 +1,26 @@
 PODS:
+  - cpp_finance_tracker_plugin (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
+  - cpp_finance_tracker_plugin (from `.symlinks/plugins/cpp_finance_tracker_plugin/ios`)
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
 
 EXTERNAL SOURCES:
+  cpp_finance_tracker_plugin:
+    :path: ".symlinks/plugins/cpp_finance_tracker_plugin/ios"
   Flutter:
     :path: Flutter
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
 
 SPEC CHECKSUMS:
+  cpp_finance_tracker_plugin: 396223ef0ffc47b6b7e765a93ea8511342acb179
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
 

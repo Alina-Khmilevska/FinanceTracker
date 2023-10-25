@@ -89,6 +89,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  cpp_finance_tracker_plugin:
+    dependency: "direct main"
+    description:
+      path: cpp_finance_tracker_plugin
+      relative: true
+    source: path
+    version: "0.0.1"
   crypto:
     dependency: transitive
     description:

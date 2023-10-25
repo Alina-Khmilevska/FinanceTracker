@@ -1,71 +1,77 @@
+import 'package:cpp_finance_tracker_plugin/cpp_finance_tracker_plugin.dart';
 import 'package:flutter/material.dart';
+//import 'package:finance_tracker_cpp_plugin/finance_tracker_cpp_plugin.dart';
 
-import '../settings/settings_view.dart';
-import 'sample_item.dart';
-import 'sample_item_details_view.dart';
+class SampleItemListView extends StatefulWidget {
+  const SampleItemListView({super.key});
 
-/// Displays a list of SampleItems.
-class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
-    super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
-  });
+  @override
+  // ignore: library_private_types_in_public_api
+  _SampleItemListViewState createState() => _SampleItemListViewState();
+}
 
-  static const routeName = '/';
+class _SampleItemListViewState extends State<SampleItemListView> {
+  final TextEditingController _firstController = TextEditingController();
+  final TextEditingController _secondController = TextEditingController();
+  int? _result;
 
-  final List<SampleItem> items;
+  _computeSum() async {
+    int firstNumber = int.parse(_firstController.text);
+    int secondNumber = int.parse(_secondController.text);
+    final plugin = CppFinanceTrackerPlugin();
+    final sum = await plugin.addNumbers(firstNumber, secondNumber);
+
+    setState(() {
+      _result = sum;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sample Items'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ],
+        title: const Text('Addition Using C++'),
       ),
-
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      body: ListView.builder(
-        // Providing a restorationId allows the ListView to restore the
-        // scroll position when a user leaves and returns to the app after it
-        // has been killed while running in the background.
-        restorationId: 'sampleItemListView',
-        itemCount: items.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
-
-          return ListTile(
-            title: Text('SampleItem ${item.id}'),
-            leading: const CircleAvatar(
-              // Display the Flutter Logo image asset.
-              foregroundImage: AssetImage('assets/images/flutter_logo.png'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _firstController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: "First number",
+                border: OutlineInputBorder(),
+              ),
             ),
-            onTap: () {
-              // Navigate to the details page. If the user leaves and returns to
-              // the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(
-                context,
-                SampleItemDetailsView.routeName,
-              );
-            }
-          );
-        },
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _secondController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: "Second number",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: _computeSum,
+              child: const Text("Compute Sum"),
+            ),
+            const SizedBox(height: 16.0),
+            if (_result != null)
+              Text("Result: $_result", style: const TextStyle(fontSize: 20)),
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _firstController.dispose();
+    _secondController.dispose();
+    super.dispose();
   }
 }

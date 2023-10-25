@@ -7,6 +7,9 @@ FinanceTracker: A cutting-edge mobile application built on Flutter and C++ desig
 ##
 We use Tailwind for styling.
 
+# Using C++
+Added custom plugin (cpp_finance_tracker_plugin) for integration with C++
+
 ## Getting Started
 
 This project is a starting point for a Flutter application that follows the
